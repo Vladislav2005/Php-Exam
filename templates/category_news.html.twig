@@ -1,0 +1,40 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+
+    <div class="news_list">
+        {% for new in news %}
+            <div class="news_list">
+            
+            <div class = "news_element">
+            <div class =".container-lg border border-secondary border-2" style="padding:10px">
+                <h5>{{ new.title ?? "Private" }} </h5>
+                <br>
+                {{ new.text }}
+                <br>
+                {% if new.category %}
+                    <p class="fst-italic badge bg-primary text-wrap">Category: {{ new.category }}</p>
+                {% endif %}
+            </div>
+
+                {% if is_granted("ROLE_MANAGER") %}
+                    <a class="btn btn-secondary" href="{{ path("news_edit", {"news": new.id})}}">Edit the new</a>
+                {% endif %}
+
+                {% if is_granted("ROLE_ADMIN") %}
+                    <a class="btn btn-danger" href="{{ path("new_delete", {"new": new.id}) }}">Delete</a>
+                {% endif %}
+            </div>
+            <br>
+            <hr>
+            </div>
+        {% else %} 
+            <div class="chat_item">No news found.</div>
+        {% endfor %}
+    </div>
+
+    
+
+
+{% endblock %}

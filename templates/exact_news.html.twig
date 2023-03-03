@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+
+    <div class=" " style:"font-size:30px">
+            <br>
+            {% if news.category %}
+                <p class="fst-italic badge bg-primary text-wrap">Category: {{ news.category }}</p>
+            {% endif %}
+            <h5 class="text-center">{{ news.title ?? "Private" }} </h5>
+            <hr>
+            <br>
+            <p class="lh-base">{{ news.text }}</p>
+            <br>
+            
+            {% if is_granted("ROLE_MANAGER") %}
+                <a class="btn btn-secondary" href="{{ path("news_edit", {"news": news.id})}}">Edit the new</a>
+            {% endif %}
+            {% if is_granted("ROLE_ADMIN") %}
+                <a class="btn btn-danger" href="{{ path("new_delete", {"new": news.id}) }}">Delete</a>
+            {% endif %}
+    </div>
+
+    
+
+
+{% endblock %}
